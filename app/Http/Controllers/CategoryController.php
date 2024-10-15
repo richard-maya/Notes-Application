@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
@@ -30,6 +32,8 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        Storage::disk('local')->put('images', $request->file('file'));
+
         Category::create([
             'name'      =>  $request->name,
             'color'     =>  str_replace('#', '', $request->color),
@@ -44,7 +48,9 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $category = Category::find($id);
+        $user = User::find($category->user_id);
+        return view('categories.show', compact('category', 'user'));
     }
 
     /**
@@ -52,7 +58,8 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $category = Category::find($id);
+        return view('categories.edit', compact('category'));
     }
 
     /**
@@ -60,7 +67,14 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $category = Category::find($id);
+
+        $category->update([
+            'name'      =>  $request->name,
+            'color'     =>  str_replace('#', '', $request->color),
+        ]);
+
+        return to_route('categories.show', $id);
     }
 
     /**
@@ -68,6 +82,8 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $category = Category::find($id);
+        $category->delete();
+        return to_route('categories.index');
     }
 }
