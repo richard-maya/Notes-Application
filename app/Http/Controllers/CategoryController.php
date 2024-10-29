@@ -32,7 +32,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        Storage::disk('local')->put('images', $request->file('file'));
+        Storage::disk('local')->put('public/images', $request->file('file'));
 
         Category::create([
             'name'      =>  $request->name,
