@@ -21,16 +21,3 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
-
-
-/*
-
-MIGRATIONS
-SEEDERS
-FACTORIES
-ELOQUENT ORM
-CRUD OPERATIONS
-AUTHENTICATION SYSTEM
-FILE STORAGE
-
-*/

@@ -1,47 +1,61 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    
-    <h1>All Categories</h1>
+@extends('layouts.bootstrap')
 
-    <a href="{{ route('categories.create') }}">Create new category</a>
+@section('title')
+<title>All Categories</title>
+@endsection
 
-    <table>
-        <thead>
-            <tr>
-               <th>ID</th> 
-               <th>Name</th> 
-               <th>Actions</th>
-               <th>Delete</th>
-            </tr>
-        </thead>
+@section('content')
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1 class="text-center">All Categories</h1>
+        </div>
+    </div>
 
-        <tbody>
-            @foreach ($categories as $category)
-                <tr>
-                    <td>{{ $category->id }}</td>
-                    <td>{{ $category->name }}</td>
-                    <td>
-                        <a href="{{ route('categories.show', $category->id) }}">See category</a>
-                        <a href="{{ route('categories.edit', $category->id) }}">Edit category</a>
-                    </td>
-                    <td>
-                        <form action="{{ route('categories.destroy', $category->id) }}" method="post">
-                            @csrf
-                            @method('delete')
+    <div class="row justify-content-center mb-4">
+        <div class="col-12 col-lg-6 text-end">
+            <a href="{{ route('categories.create') }}" class="btn btn-success btn-sm">Create new category</a>
+        </div>
+    </div>
 
-                            <input type="submit" value="Delete category">
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-</body>
-</html>
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-6">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                       <th>ID</th>
+                       <th>Name</th>
+                       <th>Actions</th>
+                       <th>Delete</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach ($categories as $category)
+                        <tr
+                            @if ($category->id > 50)
+                                class="table-danger"
+                            @endif
+                        >
+                            <td>{{ $category->id }}</td>
+                            <td>{{ $category->name }}</td>
+                            <td>
+                                <a href="{{ route('categories.show', $category->id) }}" class="btn btn-sm btn-secondary">See category</a>
+                                <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-sm btn-warning">Edit category</a>
+                            </td>
+                            <td>
+                                <form action="{{ route('categories.destroy', $category->id) }}" method="post">
+                                    @csrf
+                                    @method('delete')
+
+                                    <input type="submit" value="Delete category" class="btn btn-sm btn-danger">
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@endsection

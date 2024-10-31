@@ -1,30 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    
-    <h1>Create Category</h1>
+@extends('layouts.bootstrap')
 
-    <!-- Name, Color, User ID -->
+@section('content')
+<div class="container">
+    <div class="row mb-4">
+        <div class="col">
+            <h1 class="text-center">Create Category</h1>
+        </div>
+    </div>
 
-    <form action="{{ route('categories.store') }}" method="post" enctype="multipart/form-data">
-        @csrf
-        
-        <label for="">Name</label>
-        <input type="text" name="name">
-        <br> <br>
-        <label for="">Color</label>
-        <input type="color" name="color">
-        <br> <br>
-        <label for="">File</label>
-        <input type="file" name="file">
-        <br> <br>
-        <input type="submit" value="Create category">
-    </form>
-</body>
-</html>
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-6">
+            <form action="{{ route('categories.store') }}" method="post" enctype="multipart/form-data">
+                @csrf
+
+                <label for="" class="form-label">Name</label>
+                <input type="text" name="name" class="form-control">
+
+                <br>
+                <label for="" class="form-label">Color</label>
+                <input type="color" name="color" class="form-control">
+                <br>
+                <label for="" class="form-label">File</label>
+                <input type="file" name="file" class="form-control">
+                <br>
+
+                <div class="text-end">
+                    <input type="submit" value="Create category" class="btn btn-success">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('title')
+<title>Create Category</title>
+@endsection
