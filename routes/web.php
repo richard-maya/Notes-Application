@@ -2,11 +2,17 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CategoryApiController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/api/categories', [CategoryApiController::class, 'index']);
+Route::get('/api/category/{id}', [CategoryApiController::class, 'show']);
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
